@@ -23,7 +23,7 @@ export default function Home(props) {
 
 	return (
 		<PageContainer>
-			<div className={styles.grid}>
+			<div className={styles.center}>
 				{
 					visiblePosts.map((post, i) => {
 						return (

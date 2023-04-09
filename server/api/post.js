@@ -31,9 +31,9 @@ module.exports = app => {
 
     app.post('/post', bodyParser.json(), async (req, res) => {
         try {
-            const { title, body, imgBase64 } = req.body;
+            const { title, body, imgList } = req.body;
 
-            const post = new Post({ title, body, imgBase64 });
+            const post = new Post({ title, body, imgList });
 
             const result = await post.save();
             res.sendStatus(200);
