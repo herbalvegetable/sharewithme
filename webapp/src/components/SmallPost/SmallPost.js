@@ -12,9 +12,9 @@ export default function SmallPost(props) {
 
     const [activeImg, setActiveImg] = useState(0);
 
-    useEffect(() => {
-        console.log(activeImg, imgList[activeImg]);
-    }, [activeImg]);
+    // useEffect(() => {
+    //     console.log(activeImg, imgList[activeImg]);
+    // }, [activeImg]);
 
     const handleClick = e => {
         e.preventDefault();
@@ -23,13 +23,13 @@ export default function SmallPost(props) {
     const handleScrollLeft = e => {
         e.preventDefault();
 
-        let newIndex = activeImg == 0 ? imgList.length - 1 : activeImg - 1; 
+        let newIndex = activeImg == 0 ? imgList.length - 1 : activeImg - 1;
         setActiveImg(newIndex);
     }
     const handleScrollRight = e => {
         e.preventDefault();
 
-        let newIndex = activeImg == imgList.length - 1 ? 0 : activeImg + 1; 
+        let newIndex = activeImg == imgList.length - 1 ? 0 : activeImg + 1;
         setActiveImg(newIndex);
     }
 
@@ -58,20 +58,28 @@ export default function SmallPost(props) {
                             )
                         })
                     }
-                    <div
-                        className={styles.left_arrow}
-                        onClick={handleScrollLeft}>
-                        <BsArrowLeft
-                            color='white'
-                            className={styles.icon} />
-                    </div>
-                    <div
-                        className={styles.right_arrow}
-                        onClick={handleScrollRight}>
-                        <BsArrowRight
-                            color='white'
-                            className={styles.icon} />
-                    </div>
+                    {
+                        imgList.length > 1 &&
+                        <>
+                            <div
+                                className={styles.left_arrow}
+                                onClick={handleScrollLeft}>
+                                <BsArrowLeft
+                                    color='white'
+                                    className={styles.icon} />
+                            </div>
+                            <div
+                                className={styles.right_arrow}
+                                onClick={handleScrollRight}>
+                                <BsArrowRight
+                                    color='white'
+                                    className={styles.icon} />
+                            </div>
+                            <div className={styles.img_counter}>
+                                {activeImg + 1}/{imgList.length}
+                            </div>
+                        </>
+                    }
                 </div>
             }
         </div>
