@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
 
     width: calc(100% - 2em);
 
@@ -13,42 +14,51 @@
     z-index: 9999;
 }
 
-.navbar .logo{
+.container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    max-width: 1200px;
+    width: 100%;
+}
+
+.navbar .container .logo{
     color: white;
     font-size: x-large;
 }
 
-.navbar .links{
+.navbar .container .links{
     display: flex;
     flex-direction: row;
 
     margin-left: 2em;
 }
-.navbar .links > .link_container{
+.navbar .container .links > .link_container{
     
 }
-.navbar .links > .link_container .link{
+.navbar .container .links > .link_container .link{
     text-decoration: none;
     color: white;
 
     padding: 0.6em;
 }
-.navbar .links > .link_container .link.active{
+.navbar .container .links > .link_container .link.active{
     color: #ffffff;
 
 
 }
 
-.navbar .actions{
+.navbar .container .actions{
     display: flex;
     flex-direction: row;
     float: right;
     margin-left: auto;
 }
-.navbar .actions > .link_container{
+.navbar .container .actions > .link_container{
     
 }
-.navbar .actions > .link_container .link{
+.navbar .container .actions > .link_container .link{
     text-decoration: none;
     color: white;
 

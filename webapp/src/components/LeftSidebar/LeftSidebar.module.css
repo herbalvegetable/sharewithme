@@ -1,0 +1,49 @@
+.container{
+    position: relative;
+
+}
+
+.main {
+    position: fixed;
+    max-width: 300px;
+    width: 100%;
+/*     
+    padding-left: 1em;
+    padding-right: 0.75em; */
+}
+
+.main .logo{
+    font-size: larger;
+    font-weight: 600;
+    padding-bottom: 1em;
+}
+
+.main .login_btn {
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    width: 100%;
+    background-color: royalblue;
+    color: white;
+    padding: 0.5em 1em;
+    cursor: pointer;
+}
+
+.main .login_btn:hover {
+    background-color: rgb(58, 85, 167);
+}
+
+.main .links{
+    
+}
+.main .links > .link_container{
+    padding: 1em 0;
+    width: 100%;
+    text-decoration: none;
+    color: black;
+
+    cursor: pointer;
+}
+.main .links > .link_container.active{
+    font-weight: 600;
+}

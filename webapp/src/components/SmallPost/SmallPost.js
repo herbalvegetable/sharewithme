@@ -34,7 +34,7 @@ export default function SmallPost(props) {
     }
 
     return (
-        <div className={imgList.length > 0 ? styles.main_img : styles.main_text}>
+        <div className={`${styles.main} ${imgList.length > 0 ? styles.img : styles.text}`}>
             <div className={styles.text_content}>
                 <div className={styles.title}>{title}</div>
                 <div className={styles.body}>{body}</div>

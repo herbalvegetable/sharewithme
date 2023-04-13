@@ -4,6 +4,8 @@ import Head from 'next/head';
 import styles from './PageContainer.module.css';
 
 import Navbar from '@/components/Navbar/Navbar';
+import LeftSidebar from '@/components/LeftSidebar/LeftSidebar';
+import RightSidebar from '@/components/RightSidebar/RightSidebar';
 
 export default function PageContainer(props) {
     const { children } = props;
@@ -20,9 +22,14 @@ export default function PageContainer(props) {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Navbar />
             <div className={styles.main}>
-                {children}
+                <div className={styles.container}>
+                    <LeftSidebar />
+                    <div className={styles.center}>
+                        {children}
+                    </div>
+                    <RightSidebar />
+                </div>
             </div>
         </>
     )
