@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
-.center{
+/* .center{
     font-family: 'Inter', sans-serif;
 
     display: flex;
@@ -10,10 +10,10 @@
     max-width: 600px;
     width: 100%;
 
-    /* border: 1px solid black; */
-}
+    border: 1px solid black; 
+} */
 
-.center .title{
+.title{
     font-size: 1.25em;
     padding: 0.5em;
 
@@ -28,11 +28,11 @@
 
     transition: 0.1s;
 }
-.center .title:focus{
+.title:focus{
     border: 2px solid #1B9D51;
 }
 
-.center .body{
+.body{
     font-size: 1em;
     padding: 0.5em;
     margin-bottom: 1.5em;
@@ -45,11 +45,11 @@
 
     transition: 0.1s;
 }
-.center .body:focus{
+.body:focus{
     border: 2px solid #1B9D51;
 }
 
-.center .img_upload{
+.img_upload{
     width: fit-content;
 
     display: flex;
@@ -62,14 +62,15 @@
 
     margin-bottom: 1em;
 }
-.center .img_upload .icon{
+.img_upload .icon{
     margin-right: 0.5em;
 }
-.center input[type="file"]{
+
+.file_input{
     display: none;
 }
 
-.center .img_grid{
+.img_grid{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 1fr;
@@ -86,10 +87,10 @@
     padding: 0.75em;
     margin-bottom: 1em;
 }
-.center .img_grid{
+.img_grid{
 
 }
-.center .img_grid > .img_container{
+.img_grid > .img_container{
     position: relative;
     display: flex;
     align-items: center;
@@ -100,7 +101,7 @@
 
     cursor: pointer;
 }
-.center .img_grid > .img_container .img{
+.img_grid > .img_container .img{
     width: 100%;
     height: 100%;
 
@@ -108,7 +109,7 @@
 
     border-radius: 5px;
 }
-.center .img_grid > .img_container .delete_container{
+.img_grid > .img_container .delete_container{
     position: absolute;
     top: 0;
     left: 0;
@@ -129,12 +130,12 @@
     0% { opacity: 0; }
     100% { opacity: 1; }
 }
-.center .img_grid > .img_container .delete_container .icon{
+.img_grid > .img_container .delete_container .icon{
     font-size: 2em;
 }
 
 
-.center .img_grid_empty{
+.img_grid_empty{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -146,12 +147,12 @@
 
     margin-bottom: 1em;
 }
-.center .img_grid .text{
+.img_grid .text{
     text-align: center;
     color: rgb(75, 75, 75);
 }
 
-.center .post_btn{
+.post_btn{
     width: fit-content;
 
     font-family: inherit;
@@ -167,7 +168,7 @@
     transition: 0.1s;
 }
 
-.center .post_btn:hover{
+.post_btn:hover{
     background-color: #11753b;
     border: 2px solid #11753b;
 }
