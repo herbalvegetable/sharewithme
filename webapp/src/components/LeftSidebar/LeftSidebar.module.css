@@ -69,7 +69,7 @@
 
     transition: 0.15s;
 }
-.main .links > .link_container .active_container:hover{
+.main .links > .link_container .active_container.hover{
     background-color: lightgray;
 }
 .main .links > .link_container .active_container.active{
