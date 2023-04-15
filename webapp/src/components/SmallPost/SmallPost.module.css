@@ -2,12 +2,12 @@
     width: calc(100% - 1.5em);
 
     background-color: white;
-    border-radius: 5px;
+    /* border-radius: 2px; */
     /* border: 1px solid #1B9D51; */
 
     padding: 1em 0.75em;
 
-    margin-bottom: 0.5em;
+    margin-bottom: 0.2em;
 }
 
 .main.text {

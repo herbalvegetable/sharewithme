@@ -13,7 +13,7 @@ export default function Home(props) {
 	const [visiblePosts, setVisiblePosts] = useState([]);
 
 	useEffect(() => {
-		axios.get('http://localhost:5000/post')
+		axios.get(`http://localhost:5000/post?sort=new`)
 			.then(({ data }) => {
 				setPosts(data);
 				setVisiblePosts(data);
@@ -21,8 +21,28 @@ export default function Home(props) {
 			.catch(err => console.log(err));
 	}, []);
 
+	const [searchText, setSearchText] = useState('');
+	const [tags, setTags] = useState([]);
+
 	return (
 		<PageContainer>
+			<div className={styles.search_container}>
+				<div className={styles.fixed}>
+					{
+						tags.length > 0 &&
+						<div className={styles.tags}>
+
+						</div>
+					}
+					<input
+						className={styles.search_input}
+						value={searchText}
+						onChange={e => {
+							setSearchText(e.target.value);
+						}}
+						placeholder='Search Home' />
+				</div>
+			</div>
 			{
 				visiblePosts.map((post, i) => {
 					return (

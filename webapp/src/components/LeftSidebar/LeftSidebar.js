@@ -22,8 +22,8 @@ export default function LeftSidebar(props) {
             <div className={styles.main}>
                 <div className={styles.logo}>
                     <BsHexagonHalf
-                        className={styles.icon} 
-                        color='rgb(45, 148, 45)'/>
+                        className={styles.icon}
+                        color='rgb(45, 148, 45)' />
                     ShareWithMe
                 </div>
                 <button className={styles.login_btn}>
@@ -34,6 +34,7 @@ export default function LeftSidebar(props) {
                         links.map((l, i) => {
                             const { href, title, Icon } = l;
 
+                            const isActive = router.pathname == href;
                             return (
                                 <div
                                     key={i.toString()}
@@ -41,10 +42,10 @@ export default function LeftSidebar(props) {
                                     onClick={e => {
                                         router.push(href);
                                     }}>
-                                    <div className={`${styles.active_container} ${router.pathname == href ? styles.active : ''}`}>
+                                    <div className={`${styles.active_container} ${isActive ? styles.active : ''}`}>
                                         <Icon
-                                            className={styles.icon} 
-                                            color='black'/>
+                                            className={styles.icon}
+                                            color={isActive ? 'white' : 'black'} />
                                         {title}
                                     </div>
                                 </div>

@@ -7,6 +7,7 @@ import Image from 'next/image';
 import styles from '@/styles/PostCreate.module.css';
 
 import PageContainer from '@/layout/PageContainer/PageContainer';
+import SmallPost from '@/components/SmallPost/SmallPost';
 
 export default function Post(props) {
 
@@ -16,12 +17,33 @@ export default function Post(props) {
     const [body, setBody] = useState('');
     const [imgList, setImgList] = useState([]);
 
+    const [canPost, setCanPost] = useState(false);
     useEffect(() => {
+        setCanPost(title && body);
+    }, [title, body]);
 
-    }, []);
+    // useEffect(() => {
+    //     if(title || body || imgList.length > 0){
+    //         return () => {
+    //             console.log({title, body, imgList});
+    //             confirm('Changes you made may not be saved.');
+    //         }
+    //     }
+    // }, [title, body, imgList]);
+
+    // useEffect(() => {
+    //     router.beforePopState(({url, as, options}) => {
+    //         console.log('before pop state');
+    //         if(title || body || imgList.length > 0){
+    //             return confirm('Unsaved changes will be lost.');
+    //         }
+    //         return true;
+    //     })
+    // }, [router]);
 
     const handlePost = e => {
         e.preventDefault();
+        setPristine();
 
         const postData = { title, body, imgList: imgList.map(img => img.data) };
 
@@ -46,14 +68,18 @@ export default function Post(props) {
                 className={styles.title}
                 type='text'
                 value={title}
-                onChange={e => setTitle(e.target.value)}
+                onChange={e => {
+                    setTitle(e.target.value);
+                }}
                 placeholder='Title' />
             <textarea
                 className={styles.body}
                 rows={10}
                 cols={50}
                 value={body}
-                onChange={e => setBody(e.target.value)}
+                onChange={e => {
+                    setBody(e.target.value);
+                }}
                 placeholder='Body' />
 
             <label
@@ -151,11 +177,32 @@ export default function Post(props) {
                 }
             </div>
 
+            {
+                (title || body || imgList.length > 0) &&
+                <>
+                    <hr className={styles.divider} />
+
+                    <div className={styles.preview}>
+                        <div className={styles.text}>
+                            Preview Post
+                        </div>
+                        <SmallPost
+                            title={title}
+                            body={body}
+                            imgList={imgList.map(img => img.data)} />
+                    </div>
+
+                    <hr className={styles.divider} />
+                </>
+            }
+
             <button
-                className={styles.post_btn}
-                onClick={handlePost}>
+                className={`${styles.post_btn} ${!canPost ? styles.disabled : ''}`}
+                onClick={handlePost}
+                disabled={!canPost}>
                 Post
             </button>
+
 
         </PageContainer>
     )
