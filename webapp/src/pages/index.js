@@ -16,6 +16,7 @@ export default function Home(props) {
 		axios.get(`http://localhost:5000/post?sort=new`)
 			.then(({ data }) => {
 				setPosts(data);
+				// console.log(data);
 				setVisiblePosts(data);
 			})
 			.catch(err => console.log(err));

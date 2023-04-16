@@ -9,6 +9,28 @@ import styles from '@/styles/PostCreate.module.css';
 import PageContainer from '@/layout/PageContainer/PageContainer';
 import SmallPost from '@/components/SmallPost/SmallPost';
 
+function Tag(props) {
+    const { tag, tagIndex, handleRemoveTag } = props;
+
+    const [isHover, setIsHover] = useState(false);
+
+    return (
+        <div
+            className={styles.tag}>
+            <span className={styles.text}>{tag}</span>
+            <div
+                className={styles.delete_container}
+                onClick={e => handleRemoveTag(tagIndex)}
+                onMouseEnter={e => setIsHover(true)}
+                onMouseLeave={e => setIsHover(false)}>
+                <BsX
+                    className={styles.icon}
+                    color={isHover ? 'red' : 'black'} />
+            </div>
+        </div>
+    )
+}
+
 export default function Post(props) {
 
     const router = useRouter();
@@ -16,6 +38,8 @@ export default function Post(props) {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [imgList, setImgList] = useState([]);
+    const [currTag, setCurrTag] = useState('');
+    const [tags, setTags] = useState([]);
 
     const [canPost, setCanPost] = useState(false);
     useEffect(() => {
@@ -23,29 +47,18 @@ export default function Post(props) {
     }, [title, body]);
 
     // useEffect(() => {
-    //     if(title || body || imgList.length > 0){
-    //         return () => {
-    //             console.log({title, body, imgList});
-    //             confirm('Changes you made may not be saved.');
-    //         }
-    //     }
-    // }, [title, body, imgList]);
-
-    // useEffect(() => {
-    //     router.beforePopState(({url, as, options}) => {
-    //         console.log('before pop state');
-    //         if(title || body || imgList.length > 0){
-    //             return confirm('Unsaved changes will be lost.');
-    //         }
-    //         return true;
-    //     })
-    // }, [router]);
+    //     console.log(currTag);
+    // }, [currTag]);
 
     const handlePost = e => {
         e.preventDefault();
-        setPristine();
 
-        const postData = { title, body, imgList: imgList.map(img => img.data) };
+        const postData = { 
+            title, 
+            body, 
+            imgList: imgList.map(img => img.data), 
+            tags,
+        };
 
         axios.post('http://localhost:5000/post', postData)
             .then(res => {
@@ -58,6 +71,12 @@ export default function Post(props) {
                 router.push('/');
             })
             .catch(err => console.log(err));
+    }
+
+    const handleRemoveTag = tagIndex => {
+        let newTags = [...tags];
+        newTags.splice(tagIndex, 1);
+        setTags(newTags);
     }
 
     const fileInputRef = useRef();
@@ -91,7 +110,6 @@ export default function Post(props) {
                 Upload
             </label>
             <input
-                // key={Math.floor(Math.random() * 10000).toString()}
                 className={styles.file_input}
                 ref={fileInputRef}
                 type='file'
@@ -177,8 +195,50 @@ export default function Post(props) {
                 }
             </div>
 
+            <div className={styles.tags_container}>
+                {
+                    tags.length > 0 &&
+                    <div className={styles.tags}>
+                        {
+                            tags.map((tag, i) => {
+                                return (
+                                    <Tag
+                                        key={i.toString()}
+                                        tag={tag}
+                                        tagIndex={i}
+                                        handleRemoveTag={handleRemoveTag} />
+                                )
+                            })
+                        }
+                    </div>
+                }
+                <input
+                    type='text'
+                    className={styles.input}
+                    value={currTag}
+                    onChange={e => {
+                        setCurrTag(e.target.value.trim().toLowerCase());
+                    }}
+                    placeholder={tags.length > 0 ? '' : 'Tags'}
+                    onKeyDown={e => {
+                        if (['Enter', ','].includes(e.key) && 
+                            currTag && 
+                            !currTag.includes(' ') &&
+                            !tags.includes(currTag)) {
+
+                            setTags([...tags, currTag]);
+                            setCurrTag('');
+                        }
+                        if (['Backspace'].includes(e.key) && currTag == '') {
+                            let newTags = [...tags];
+                            newTags.pop();
+                            setTags(newTags);
+                        }
+                    }} />
+            </div>
+
             {
-                (title || body || imgList.length > 0) &&
+                canPost &&
                 <>
                     <hr className={styles.divider} />
 
@@ -189,7 +249,9 @@ export default function Post(props) {
                         <SmallPost
                             title={title}
                             body={body}
-                            imgList={imgList.map(img => img.data)} />
+                            imgList={imgList.map(img => img.data)}
+                            tags={tags}
+                            isPreview />
                     </div>
 
                     <hr className={styles.divider} />

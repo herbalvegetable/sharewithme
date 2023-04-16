@@ -5,6 +5,7 @@ const postSchema = new Schema({
     title: { type: String, required: true },
     body: { type: String, required: true },
     imgList: [String],
+    tags: [String],
 }, { timestamps: true });
 
 const Post = mongoose.model('post', postSchema);
