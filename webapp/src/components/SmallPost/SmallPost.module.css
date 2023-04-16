@@ -169,6 +169,8 @@
     margin-right: 0.25em;
     padding: 0.3em 0.7em;
     border-radius: 20px;
+
+    cursor: pointer;
 }
 
 .tags>.tag .text {

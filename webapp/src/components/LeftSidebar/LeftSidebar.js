@@ -1,9 +1,10 @@
 import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { BsHexagonHalf, BsFillHouseFill, BsFillSendFill } from 'react-icons/bs';
+import { BsHexagonHalf, BsFillHouseFill, BsFillSendFill, BsFillInfoCircleFill } from 'react-icons/bs';
 
 import styles from './LeftSidebar.module.css';
+import LoginModal from '../LoginModal/LoginModal';
 
 function LinkContainer(props) {
     const [isHover, setIsHover] = useState(false);
@@ -43,11 +44,14 @@ export default function LeftSidebar(props) {
     const [links, setLinks] = useState([
         { href: '/', title: 'Home', Icon: BsFillHouseFill },
         { href: '/post', title: 'Post', Icon: BsFillSendFill },
+        { href: '/about', title: 'About', Icon: BsFillInfoCircleFill },
     ]);
 
     useEffect(() => {
 
     }, []);
+
+    const [modalOpen, setModalOpen] = useState(false);
 
     return (
         <div className={styles.container}>
@@ -58,9 +62,16 @@ export default function LeftSidebar(props) {
                         color='rgb(45, 148, 45)' />
                     ShareWithMe
                 </div>
-                <button className={styles.login_btn}>
+                <button 
+                    className={styles.login_btn}
+                    onClick={e => {
+                        setModalOpen(true);
+                    }}>
                     Login
                 </button>
+                <LoginModal 
+                    isOpen={modalOpen}
+                    setModalOpen={setModalOpen}/>
                 <div className={styles.links}>
                     {
                         links.map((l, i) => {

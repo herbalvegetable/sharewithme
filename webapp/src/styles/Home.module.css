@@ -12,13 +12,14 @@
     position: fixed;
     width: 100%;
     max-width: 650px;
-    z-index: 9999;
+    z-index: 10;
     top: calc(-2.5em + 3px);
 }
 .search_container .fixed .tags{
 
 }
 .search_container .fixed .search_input{
+    z-index: 10;
     width: 100%;
     box-sizing: border-box;
     padding: 3em 1em 0.5em 1em;
