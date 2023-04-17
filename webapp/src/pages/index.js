@@ -8,7 +8,6 @@ import PageContainer from '@/layout/PageContainer/PageContainer';
 import SmallPost from '@/components/SmallPost/SmallPost';
 
 export default function Home(props) {
-
 	const [posts, setPosts] = useState([]);
 	const [visiblePosts, setVisiblePosts] = useState([]);
 

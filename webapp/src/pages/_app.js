@@ -1,9 +1,11 @@
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { SessionProvider } from 'next-auth/react';
 
 import '@/styles/globals.css';
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps, session }) {
 	return (
-		<Component {...pageProps} />
+		<SessionProvider session={session}>
+			<Component {...pageProps} />
+		</SessionProvider>
 	)
 }

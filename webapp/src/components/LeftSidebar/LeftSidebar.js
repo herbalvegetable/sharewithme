@@ -51,8 +51,6 @@ export default function LeftSidebar(props) {
 
     }, []);
 
-    const [modalOpen, setModalOpen] = useState(false);
-
     return (
         <div className={styles.container}>
             <div className={styles.main}>
@@ -62,16 +60,6 @@ export default function LeftSidebar(props) {
                         color='rgb(45, 148, 45)' />
                     ShareWithMe
                 </div>
-                <button 
-                    className={styles.login_btn}
-                    onClick={e => {
-                        setModalOpen(true);
-                    }}>
-                    Login
-                </button>
-                <LoginModal 
-                    isOpen={modalOpen}
-                    setModalOpen={setModalOpen}/>
                 <div className={styles.links}>
                     {
                         links.map((l, i) => {
