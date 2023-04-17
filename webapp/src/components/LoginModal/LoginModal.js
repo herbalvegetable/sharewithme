@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
 import styles from './LoginModal.module.css';
 
@@ -27,7 +29,9 @@ export default function LoginModal(props) {
                 <span className={styles.title}>Login</span>
             </div>
             <div className={styles.body}>
-
+                {/* <GoogleLogin 
+                    onSuccess={onLoginSuccess}
+                    onFailure={onLoginFailure}/> */}
             </div>
             <div className={styles.footer}>
                 <button
