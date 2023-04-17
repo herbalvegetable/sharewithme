@@ -38,7 +38,7 @@ export default function RightSidebar(props) {
         {
             title: 'Profile',
             handleClick: e => {
-                router.push('/profile');
+                //go to profile
             },
         },
         {

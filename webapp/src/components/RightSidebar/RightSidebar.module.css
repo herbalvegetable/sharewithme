@@ -49,7 +49,6 @@
 
 .profile.open{
     border-radius: 10px 10px 0 0;
-    border-bottom: 1px solid lightgray;
 }
 
 .profile:hover {
@@ -102,11 +101,14 @@
 
 .dropdown .item{
     background-color: #fff;
-    border-bottom: 1px solid lightgray;
+    border-top: 1px solid lightgray;
     padding: 0.5em;
     cursor: pointer;
     transition: 0.1s;
 }
 .dropdown .item:hover{
     background-color: lightgray;
+}
+.dropdown .item:last-child{
+    border-radius: 0 0 10px 10px;
 }
