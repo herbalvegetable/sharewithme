@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 
 import styles from './SmallPost.module.css';
+import ImageSlider from '../ImageSlider/ImageSlider';
 
 export default function SmallPost(props) {
 
     const router = useRouter();
-    const { title, body, imgList, tags, isPreview } = props;
+    const { _id: postId, title, body, imgList, tags, isPreview } = props;
 
     const [activeImg, setActiveImg] = useState(0);
 
@@ -17,70 +18,53 @@ export default function SmallPost(props) {
     }
 
     const handleScrollLeft = e => {
+        e.stopPropagation();
         e.preventDefault();
 
         let newIndex = activeImg == 0 ? imgList.length - 1 : activeImg - 1;
         setActiveImg(newIndex);
     }
     const handleScrollRight = e => {
+        e.stopPropagation();
         e.preventDefault();
 
         let newIndex = activeImg == imgList.length - 1 ? 0 : activeImg + 1;
         setActiveImg(newIndex);
     }
 
-    return (
-        <div className={styles.main}>
-            <div className={`${styles.content} ${imgList.length > 0 ? styles.img : styles.text}`}>
-                <div className={styles.text_content}>
-                    <div className={styles.title}>{title}</div>
-                    <div className={styles.body}>{body}</div>
-                </div>
-                {
-                    imgList.length > 0 &&
-                    <div className={styles.img_slider}>
-                        {
-                            imgList.map((img, i) => {
-                                return (
-                                    <div
-                                        key={i.toString()}
-                                        className={styles.img_container}>
-                                        <Image
-                                            className={`${styles.img} ${activeImg == i ? styles.active : ''}`}
-                                            src={img}
-                                            width={100}
-                                            height={100}
-                                            alt='Image' />
-                                    </div>
-                                )
-                            })
-                        }
-                        {
-                            imgList.length > 1 &&
-                            <>
-                                <div
-                                    className={styles.left_arrow}
-                                    onClick={handleScrollLeft}>
-                                    <BsArrowLeft
-                                        color='white'
-                                        className={styles.icon} />
-                                </div>
-                                <div
-                                    className={styles.right_arrow}
-                                    onClick={handleScrollRight}>
-                                    <BsArrowRight
-                                        color='white'
-                                        className={styles.icon} />
-                                </div>
-                                <div className={styles.img_counter}>
-                                    {activeImg + 1}/{imgList.length}
-                                </div>
-                            </>
-                        }
-                    </div>
+    const bodyRef = useRef(null);
+    const [isOverflow, setIsOverflow] = useState(false);
 
-                }
-            </div>
+    useEffect(() => {
+        if(body){
+            const bodyEl = bodyRef.current;
+            setIsOverflow(bodyEl.clientHeight < bodyEl.scrollHeight);
+        }
+    }, []);
+    return (
+        <div
+            className={styles.main}
+            onClick={e => {
+                router.push(`/p/${postId}`);
+            }}>
+            <div className={styles.title}>{title}</div>
+            {
+                body &&
+                <div className={styles.body} ref={bodyRef}>
+                    {isOverflow && <div className={styles.fade_container}></div>}
+                    {body}
+                </div>
+            }
+            {
+                imgList.length > 0 &&
+                <ImageSlider
+                    imgList={imgList}
+                    customStyle={{
+                        img_slider: styles.img_slider,
+                        active_img: styles.img,
+                        img: styles.img,
+                    }} />
+            }
             {
                 tags.length > 0 &&
                 <div className={styles.tags}>

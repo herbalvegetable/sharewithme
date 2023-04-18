@@ -3,7 +3,7 @@ const { Schema, model } = mongoose;
 
 const postSchema = new Schema({
     title: { type: String, required: true },
-    body: { type: String, required: true },
+    body: String,
     imgList: [String],
     tags: [String],
 }, { timestamps: true });

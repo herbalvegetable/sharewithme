@@ -1,0 +1,19 @@
+.title{
+    padding: 0.5em 0;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.img_slider{
+    width: 100%;
+    height: 700px;
+
+    box-shadow: none !important;
+}
+.img_slider .img{
+    object-fit: contain !important;
+}
+
+.body{
+
+}

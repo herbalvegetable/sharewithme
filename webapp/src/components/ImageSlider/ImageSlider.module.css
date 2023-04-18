@@ -1,0 +1,115 @@
+.main {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    user-select: none;
+
+    /* box-shadow: -5px 5px 15px 0px rgba(0, 0, 0, 0.1); */
+}
+
+.main>.img_container {
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 5px;
+}
+
+.main>.img_container .img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: 5px;
+
+    opacity: 0;
+
+    transition: 0.1s ease-in-out;
+}
+
+.main>.img_container .active_img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: 5px;
+
+    opacity: 1;
+
+    transition: 0.1s ease-in-out;
+}
+
+.main .left_arrow {
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+    left: 0.25em;
+    cursor: pointer;
+}
+
+.main .left_arrow .highlight{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(140, 140, 140, 0.5);
+    border-radius: 50%;
+    padding: 0.25em;
+}
+
+.main .left_arrow .highlight .icon {
+    font-size: 1.5em;
+}
+
+.main .right_arrow {
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+    right: 0.25em;
+    cursor: pointer;
+}
+
+.main .right_arrow .highlight{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(140, 140, 140, 0.5);
+    border-radius: 50%;
+    padding: 0.25em;
+}
+
+.main .right_arrow .highlight .icon {
+    font-size: 1.5em;
+}
+
+.main .img_counter {
+    position: absolute;
+
+    top: 0.4em;
+    right: 0.4em;
+
+    color: white;
+    font-size: 0.9em;
+
+    width: fit-content;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 0.25em 0.5em;
+    border-radius: 30px;
+}

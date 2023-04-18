@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 require('dotenv').config();
 
@@ -19,5 +20,9 @@ const server = app.listen(port, () => {
 });
 
 app.use(cors());
+app.use(bodyParser.json({
+    limit: '50mb',
+    extended: true,
+}));
 
 require('./api/post')(app);

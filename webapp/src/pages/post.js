@@ -43,8 +43,8 @@ export default function Post(props) {
 
     const [canPost, setCanPost] = useState(false);
     useEffect(() => {
-        setCanPost(title && body);
-    }, [title, body]);
+        setCanPost(title != '');
+    }, [title]);
 
     // useEffect(() => {
     //     console.log(currTag);
@@ -99,7 +99,7 @@ export default function Post(props) {
                 onChange={e => {
                     setBody(e.target.value);
                 }}
-                placeholder='Body' />
+                placeholder='Body (optional)' />
 
             <label
                 htmlFor='img-upload'
