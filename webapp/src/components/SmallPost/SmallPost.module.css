@@ -43,10 +43,10 @@
     flex-grow: 1;
     height: 500px;
     margin-top: 0.5em;
-    border-radius: 5px;
 }
 .img_slider .img{
     object-fit: contain !important;
+    
 }
 
 .tags {

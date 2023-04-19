@@ -28,22 +28,41 @@ export default function PostExpand(props) {
 
     return (
         <PageContainer>
-            <div className={styles.title}>
-                {post.title}
+            <div className={styles.post}>
+                <div className={styles.title}>
+                    {post.title}
+                </div>
+                <div className={styles.body}>
+                    {post.body}
+                </div>
+                {
+                    post.imgList?.length > 0 &&
+                    <ImageSlider
+                        imgList={post.imgList}
+                        customStyle={{
+                            img_slider: styles.img_slider,
+                            img_container: styles.img_container,
+                            active_img: styles.img,
+                            img: styles.img,
+                        }} />
+                }
+                {
+                    post.tags?.length > 0 &&
+                    <div className={styles.tags}>
+                        {
+                            post.tags.map((tag, i) => {
+                                return (
+                                    <div
+                                        key={i.toString()}
+                                        className={styles.tag}>
+                                        <span className={styles.text}>{tag}</span>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                }
             </div>
-            <div className={styles.body}>
-                {post.body}
-            </div>
-            {
-                post.imgList?.length > 0 &&
-                <ImageSlider 
-                    imgList={post.imgList}
-                    customStyle={{
-                        img_slider: styles.img_slider,
-                        active_img: styles.img,
-                        img: styles.img,
-                    }}/>
-            }
         </PageContainer>
     )
 }

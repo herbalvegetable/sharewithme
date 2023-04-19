@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
+import { SlArrowLeft, SlArrowRight } from 'react-icons/sl';
+import {MdOutlineArrowBackIos, MdOutlineArrowForwardIos} from 'react-icons/md';
 
 import styles from './ImageSlider.module.css';
 
@@ -54,20 +56,20 @@ export default function ImageSlider(props) {
                         isHover &&
                         <>
                             <div
-                                className={styles.left_arrow}
+                                className={`${styles.arrow} ${styles.left_arrow}`}
                                 onClick={handleScrollLeft}>
                                 <div className={styles.highlight}>
-                                    <BsArrowLeft
-                                        color='white'
+                                    <MdOutlineArrowBackIos
+                                        color='gray'
                                         className={styles.icon} />
                                 </div>
                             </div>
                             <div
-                                className={styles.right_arrow}
+                                className={`${styles.arrow} ${styles.right_arrow}`}
                                 onClick={handleScrollRight}>
                                 <div className={styles.highlight}>
-                                    <BsArrowRight
-                                        color='white'
+                                    <MdOutlineArrowForwardIos
+                                        color='gray'
                                         className={styles.icon} />
                                 </div>
                             </div>
