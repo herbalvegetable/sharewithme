@@ -5,7 +5,7 @@
 
 .main {
     position: fixed;
-    max-width: calc(250px - 1em);
+    max-width: calc(300px - 1em);
     width: 100%;
     padding-top: 1em;
     padding-left: 1em;

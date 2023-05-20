@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 import styles from '@/styles/Home.module.css';
 
@@ -22,25 +23,77 @@ export default function Home(props) {
 	}, []);
 
 	const [searchText, setSearchText] = useState('');
-	const [tags, setTags] = useState([]);
+
+	const handleSearch = e => {
+		e.preventDefault();
+
+		console.log(`SEARCHTEXT: "${searchText}"`, searchText == '');
+
+		if(searchText == ''){
+			setVisiblePosts([...posts]);
+			return;
+		}
+
+		console.log(searchText);
+
+		const words = searchText.split(' ');
+		let tags = [], terms = [];
+
+		for (let word of words) {
+			if (word.startsWith('#')) {
+				tags.push(word.replaceAll('#', ''));
+			}
+			else {
+				terms.push(word);
+			}
+		}
+
+		const filteredPosts = [...posts].filter(post => {
+
+			return terms.some(term => {
+				// console.log(post.title, term.toLowerCase(), post.title.includes(term.toLowerCase()));
+
+				return post.title.includes(term.toLowerCase());
+			}) || // term match title
+				tags.some(tag => {
+					console.log(post.tags, tag.toLowerCase(), post.tags.includes(tag.toLowerCase()));
+
+					return post.tags.includes(tag.toLowerCase());
+				}) // tag match
+		});
+
+		console.log(filteredPosts);
+
+		setVisiblePosts(filteredPosts);
+	}
 
 	return (
 		<PageContainer>
-			<div className={styles.search_container}>
+			<div className={styles.top_container}>
 				<div className={styles.fixed}>
-					{
-						tags.length > 0 &&
-						<div className={styles.tags}>
-
+					<div className={styles.search_container}>
+						<div
+							className={styles.search_enter}
+							onClick={handleSearch}>
+							<AiOutlineSearch
+								className={styles.icon}
+								// color='rgb(50, 50, 50)' 
+								color='gray'
+							/>
 						</div>
-					}
-					<input
-						className={styles.search_input}
-						value={searchText}
-						onChange={e => {
-							setSearchText(e.target.value);
-						}}
-						placeholder='Search Home' />
+						<input
+							className={styles.search_input}
+							value={searchText}
+							onChange={e => {
+								setSearchText(e.target.value.trim());
+							}}
+							onKeyDown={e => {
+								if (['Enter'].includes(e.key)) {
+									handleSearch(e);
+								}
+							}}
+							placeholder='Search Home' />
+					</div>
 				</div>
 			</div>
 			{

@@ -130,8 +130,18 @@ export default function Post(props) {
                         // after reader returns base64 output
                         reader.onload = () => {
                             // console.log(reader.result);
+
+                            // var aspectRatio;
+
+                            // var img = new Image();
+                            // img.src = reader.result;
+                            // img.onload = () => {
+                            //     aspectRatio = this.width / this.height;
+                            // }
+
                             currImgList.push({
                                 data: reader.result,
+                                // aspectRatio: ,
                                 isHover: false,
                             });
 
@@ -221,7 +231,7 @@ export default function Post(props) {
                     }}
                     placeholder={tags.length > 0 ? '' : 'Tags'}
                     onKeyDown={e => {
-                        if (['Enter', ','].includes(e.key) && 
+                        if (['Enter', ',', ' '].includes(e.key) && 
                             currTag && 
                             !currTag.includes(' ') &&
                             !tags.includes(currTag)) {

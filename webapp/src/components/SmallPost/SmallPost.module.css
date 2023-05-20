@@ -46,7 +46,7 @@
 }
 .img_slider .img{
     object-fit: contain !important;
-    
+    width: 100% !important;
 }
 
 .tags {
