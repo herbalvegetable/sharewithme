@@ -53,10 +53,10 @@ export default function Post(props) {
     const handlePost = e => {
         e.preventDefault();
 
-        const postData = { 
-            title, 
-            body, 
-            imgList: imgList.map(img => img.data), 
+        const postData = {
+            title,
+            body,
+            imgList: imgList.map(img => img.data),
             tags,
         };
 
@@ -101,7 +101,7 @@ export default function Post(props) {
                 }}
                 placeholder='Body (optional)' />
 
-            <label
+            {/* <label
                 htmlFor='img-upload'
                 className={styles.img_upload}>
                 <BsUpload
@@ -155,54 +155,103 @@ export default function Post(props) {
                         console.log(file);
                     }
                 }}
-            />
+            /> */}
 
-            <div className={imgList.length > 0 ? styles.img_grid : styles.img_grid_empty}>
+            <div className={styles.img_grid}>
                 {
-                    imgList.length > 0 ?
-
-                        imgList.map((img, i) => {
-                            return (
-                                <div
-                                    key={i.toString()}
-                                    className={styles.img_container}
-                                    onMouseEnter={e => {
-                                        let newImgList = [...imgList];
-                                        newImgList[i].isHover = true;
-                                        setImgList(newImgList);
-                                    }}
-                                    onMouseLeave={e => {
-                                        let newImgList = [...imgList];
-                                        newImgList[i].isHover = false;
-                                        setImgList(newImgList);
-                                    }}
-                                    onClick={e => {
-                                        let newImgList = [...imgList];
-                                        newImgList.splice(i, 1);
-                                        setImgList(newImgList);
-                                    }}>
-                                    <Image
-                                        className={styles.img}
-                                        src={img.data}
-                                        width={100}
-                                        height={100}
-                                        alt='Image' />
-                                    {
-                                        imgList[i].isHover &&
-                                        <div className={styles.delete_container}>
-                                            <BsX
-                                                className={styles.icon}
-                                                color='white' />
-                                        </div>
-                                    }
-                                </div>
-                            )
-                        })
-
-                        :
-
-                        <div className={styles.text}>Uploaded images will appear here</div>
+                    imgList.map((img, i) => {
+                        return (
+                            <div
+                                key={i.toString()}
+                                className={styles.img_container}
+                                onMouseEnter={e => {
+                                    let newImgList = [...imgList];
+                                    newImgList[i].isHover = true;
+                                    setImgList(newImgList);
+                                }}
+                                onMouseLeave={e => {
+                                    let newImgList = [...imgList];
+                                    newImgList[i].isHover = false;
+                                    setImgList(newImgList);
+                                }}
+                                onClick={e => {
+                                    let newImgList = [...imgList];
+                                    newImgList.splice(i, 1);
+                                    setImgList(newImgList);
+                                }}>
+                                <Image
+                                    className={styles.img}
+                                    src={img.data}
+                                    width={100}
+                                    height={100}
+                                    alt='Image' />
+                                {
+                                    imgList[i].isHover &&
+                                    <div className={styles.delete_container}>
+                                        <BsX
+                                            className={styles.icon}
+                                            color='white' />
+                                    </div>
+                                }
+                            </div>
+                        )
+                    })
                 }
+                <label
+                    htmlFor='img-upload'
+                    className={styles.img_upload}
+                    title='Upload Media'>
+                    <BsUpload
+                        className={styles.icon}
+                        color='black' />
+                </label>
+                <input
+                    className={styles.file_input}
+                    ref={fileInputRef}
+                    type='file'
+                    id='img-upload'
+                    accept="image/png, image/jpeg"
+                    multiple
+                    onChange={e => {
+                        const files = e.target.files;
+
+                        const currImgList = [...imgList];
+
+                        for (let i = 0; i < files.length; i++) {
+                            const file = files[i];
+
+                            const reader = new FileReader();
+                            reader.readAsDataURL(file);
+
+                            // after reader returns base64 output
+                            reader.onload = () => {
+                                // console.log(reader.result);
+
+                                // var aspectRatio;
+
+                                // var img = new Image();
+                                // img.src = reader.result;
+                                // img.onload = () => {
+                                //     aspectRatio = this.width / this.height;
+                                // }
+
+                                currImgList.push({
+                                    data: reader.result,
+                                    // aspectRatio: ,
+                                    isHover: false,
+                                });
+
+                                if (i >= files.length - 1) {
+                                    setImgList(currImgList);
+                                    e.target.value = '';
+                                }
+                            }
+                            reader.onerror = err => console.log(err);
+
+                            console.log(file);
+                        }
+                    }}
+                />
             </div>
 
             <div className={styles.tags_container}>
@@ -231,8 +280,8 @@ export default function Post(props) {
                     }}
                     placeholder={tags.length > 0 ? '' : 'Tags'}
                     onKeyDown={e => {
-                        if (['Enter', ',', ' '].includes(e.key) && 
-                            currTag && 
+                        if (['Enter', ',', ' '].includes(e.key) &&
+                            currTag &&
                             !currTag.includes(' ') &&
                             !tags.includes(currTag)) {
 

@@ -97,6 +97,8 @@ export default function Home(props) {
 				</div>
 			</div>
 			{
+				visiblePosts.length > 0 ?
+
 				visiblePosts.map((post, i) => {
 					return (
 						<SmallPost
@@ -104,6 +106,12 @@ export default function Home(props) {
 							{...post} />
 					)
 				})
+
+				:
+
+				<div className={styles.no_results}>
+					No results, try searching for something else.
+				</div>
 			}
 		</PageContainer>
 	)
