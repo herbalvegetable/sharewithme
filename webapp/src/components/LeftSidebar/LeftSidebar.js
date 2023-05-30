@@ -54,7 +54,11 @@ export default function LeftSidebar(props) {
     return (
         <div className={styles.container}>
             <div className={styles.main}>
-                <div className={styles.logo}>
+                <div 
+                    className={styles.logo}
+                    onClick={e => {
+                        router.push('/');
+                    }}>
                     <BsHexagonHalf
                         className={styles.icon}
                         color='rgb(45, 148, 45)' />

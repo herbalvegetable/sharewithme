@@ -24,19 +24,31 @@ export default function Home(props) {
 
 	const [searchText, setSearchText] = useState('');
 
-	const handleSearch = e => {
-		e.preventDefault();
-
-		console.log(`SEARCHTEXT: "${searchText}"`, searchText == '');
-
+	useEffect(() => {
 		if(searchText == ''){
+			handleSearch();
+		}
+	}, [searchText]);
+
+	const handleSearch = (searchValue) => {
+
+		if(searchValue){
+			setSearchText(searchValue.trim());
+		}
+		else{
+			searchValue = searchText.trim().toLowerCase();
+		}
+
+		console.log(`SEARCHVALUE: "${searchValue}"`, searchValue == '');
+
+		if(searchValue == ''){
 			setVisiblePosts([...posts]);
 			return;
 		}
 
-		console.log(searchText);
+		console.log(searchValue);
 
-		const words = searchText.split(' ');
+		const words = searchValue.split(' ');
 		let tags = [], terms = [];
 
 		for (let word of words) {
@@ -50,12 +62,12 @@ export default function Home(props) {
 
 		const filteredPosts = [...posts].filter(post => {
 
-			return terms.some(term => {
+			return terms.every(term => {
 				// console.log(post.title, term.toLowerCase(), post.title.includes(term.toLowerCase()));
 
 				return post.title.includes(term.toLowerCase());
-			}) || // term match title
-				tags.some(tag => {
+			}) && // term match title
+				tags.every(tag => {
 					console.log(post.tags, tag.toLowerCase(), post.tags.includes(tag.toLowerCase()));
 
 					return post.tags.includes(tag.toLowerCase());
@@ -74,7 +86,10 @@ export default function Home(props) {
 					<div className={styles.search_container}>
 						<div
 							className={styles.search_enter}
-							onClick={handleSearch}>
+							onClick={e => {
+								e.preventDefault();
+								handleSearch();
+							}}>
 							<AiOutlineSearch
 								className={styles.icon}
 								// color='rgb(50, 50, 50)' 
@@ -85,11 +100,11 @@ export default function Home(props) {
 							className={styles.search_input}
 							value={searchText}
 							onChange={e => {
-								setSearchText(e.target.value.trim());
+								setSearchText(e.target.value);
 							}}
 							onKeyDown={e => {
 								if (['Enter'].includes(e.key)) {
-									handleSearch(e);
+									handleSearch();
 								}
 							}}
 							placeholder='Search Home' />
@@ -103,7 +118,10 @@ export default function Home(props) {
 					return (
 						<SmallPost
 							key={i.toString()}
-							{...post} />
+							{...post} 
+							searchText={searchText}
+							setSearchText={setSearchText}
+							handleSearch={handleSearch}/>
 					)
 				})
 

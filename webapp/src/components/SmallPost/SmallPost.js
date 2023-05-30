@@ -9,27 +9,14 @@ import ImageSlider from '../ImageSlider/ImageSlider';
 export default function SmallPost(props) {
 
     const router = useRouter();
-    const { _id: postId, title, body, imgList, tags, isPreview } = props;
+    const { _id: postId, title, body, imgList, tags, isPreview, searchText, setSearchText, handleSearch } = props;
 
     const [activeImg, setActiveImg] = useState(0);
 
     const handleClick = e => {
         e.preventDefault();
-    }
 
-    const handleScrollLeft = e => {
-        e.stopPropagation();
-        e.preventDefault();
-
-        let newIndex = activeImg == 0 ? imgList.length - 1 : activeImg - 1;
-        setActiveImg(newIndex);
-    }
-    const handleScrollRight = e => {
-        e.stopPropagation();
-        e.preventDefault();
-
-        let newIndex = activeImg == imgList.length - 1 ? 0 : activeImg + 1;
-        setActiveImg(newIndex);
+        router.push(`/p/${postId}`);
     }
 
     const bodyRef = useRef(null);
@@ -41,12 +28,23 @@ export default function SmallPost(props) {
             setIsOverflow(bodyEl.clientHeight < bodyEl.scrollHeight);
         }
     }, []);
+
+    const handleClickTag = tag => {
+        console.log(tag);
+
+        // setSearchText(
+        //     (searchText != '' ? `${searchText} ` : '') + `#${tag}`
+        // );
+
+        handleSearch(
+            (searchText != '' ? `${searchText} ` : '') + `#${tag}`
+        );
+    }
+
     return (
         <div
             className={styles.main}
-            onClick={e => {
-                router.push(`/p/${postId}`);
-            }}>
+            onClick={handleClick}>
             <div className={styles.title}>{title}</div>
             {
                 body &&
@@ -73,7 +71,13 @@ export default function SmallPost(props) {
                             return (
                                 <div
                                     key={i.toString()}
-                                    className={styles.tag}>
+                                    className={styles.tag}
+                                    onClick={e => {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+
+                                        handleClickTag(tag);
+                                    }}>
                                     <span className={styles.text}>{tag}</span>
                                 </div>
                             )

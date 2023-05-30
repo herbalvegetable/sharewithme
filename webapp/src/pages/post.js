@@ -270,7 +270,7 @@ function NormalPostType(props) {
 
 export default function Post(props) {
 
-    const [postTypeIndex, setPostTypeIndex] = useState(1);
+    const [postTypeIndex, setPostTypeIndex] = useState(0);
     const POSTTYPES = [
         { type: 'normal', title: 'Post', PostType: <NormalPostType /> },
         { type: 'emoji_board', title: 'Board', PostType: null },
