@@ -31,7 +31,7 @@ function Tag(props) {
     )
 }
 
-export default function Post(props) {
+function NormalPostType(props) {
 
     const router = useRouter();
 
@@ -42,13 +42,10 @@ export default function Post(props) {
     const [tags, setTags] = useState([]);
 
     const [canPost, setCanPost] = useState(false);
+
     useEffect(() => {
         setCanPost(title != '');
     }, [title]);
-
-    // useEffect(() => {
-    //     console.log(currTag);
-    // }, [currTag]);
 
     const handlePost = e => {
         e.preventDefault();
@@ -82,7 +79,7 @@ export default function Post(props) {
     const fileInputRef = useRef();
 
     return (
-        <PageContainer>
+        <>
             <input
                 className={styles.title}
                 type='text'
@@ -100,62 +97,6 @@ export default function Post(props) {
                     setBody(e.target.value);
                 }}
                 placeholder='Body (optional)' />
-
-            {/* <label
-                htmlFor='img-upload'
-                className={styles.img_upload}>
-                <BsUpload
-                    className={styles.icon}
-                    color='black' />
-                Upload
-            </label>
-            <input
-                className={styles.file_input}
-                ref={fileInputRef}
-                type='file'
-                id='img-upload'
-                accept="image/png, image/jpeg"
-                multiple
-                onChange={e => {
-                    const files = e.target.files;
-
-                    const currImgList = [...imgList];
-
-                    for (let i = 0; i < files.length; i++) {
-                        const file = files[i];
-
-                        const reader = new FileReader();
-                        reader.readAsDataURL(file);
-
-                        // after reader returns base64 output
-                        reader.onload = () => {
-                            // console.log(reader.result);
-
-                            // var aspectRatio;
-
-                            // var img = new Image();
-                            // img.src = reader.result;
-                            // img.onload = () => {
-                            //     aspectRatio = this.width / this.height;
-                            // }
-
-                            currImgList.push({
-                                data: reader.result,
-                                // aspectRatio: ,
-                                isHover: false,
-                            });
-
-                            if (i >= files.length - 1) {
-                                setImgList(currImgList);
-                                e.target.value = '';
-                            }
-                        }
-                        reader.onerror = err => console.log(err);
-
-                        console.log(file);
-                    }
-                }}
-            /> */}
 
             <div className={styles.img_grid}>
                 {
@@ -323,7 +264,39 @@ export default function Post(props) {
                 disabled={!canPost}>
                 Post
             </button>
+        </>
+    )
+}
 
+export default function Post(props) {
+
+    const [postTypeIndex, setPostTypeIndex] = useState(1);
+    const POSTTYPES = [
+        { type: 'normal', title: 'Post', PostType: <NormalPostType /> },
+        { type: 'emoji_board', title: 'Board', PostType: null },
+    ];
+
+    return (
+        <PageContainer>
+
+            <div className={styles.post_types}>
+                {
+                    POSTTYPES.map((postType, i) => {
+                        return (
+                            <div
+                                key={i.toString()}
+                                className={`${styles.type} ${i == postTypeIndex ? styles.active : ''}`}
+                                onClick={e => {
+                                    setPostTypeIndex(i);
+                                }}>
+                                {postType.title}
+                            </div>
+                        )
+                    })
+                }
+            </div>
+
+            {POSTTYPES[postTypeIndex].PostType}
 
         </PageContainer>
     )
