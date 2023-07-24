@@ -23,17 +23,20 @@ export default function SmallPost(props) {
     const bodyRef = useRef(null);
     const [isOverflow, setIsOverflow] = useState(false);
 
+    const [author, setAuthor] = useState({});
+
     useEffect(() => {
-        if(body){
+        if (body) {
             const bodyEl = bodyRef.current;
             setIsOverflow(bodyEl.clientHeight < bodyEl.scrollHeight);
         }
 
         console.log('SMALLPOST USERID: ', user);
-        if(user){
+        if (user) {
             axios.get(`http://localhost:5000/login?user=${user}`)
-                .then(({data}) => {
+                .then(({ data }) => {
                     console.log('SMALLPOST USER: ', data);
+                    setAuthor(data);
                 })
                 .catch(err => console.log(err));
         }
@@ -57,6 +60,25 @@ export default function SmallPost(props) {
         <div
             className={styles.main}
             onClick={handleClick}>
+            {
+                author ?
+
+                <div className={styles.author}>
+                    <div className={styles.img_wrapper}>
+                        <Image
+                            width='50'
+                            height='50'
+                            src={author.img}
+                            alt='Profile Image'
+                            className={styles.img} />
+                    </div>
+                    <div className={styles.name}>{author.username}</div>
+                </div>
+
+                :
+
+                null
+            }
             <div className={styles.title}>{title}</div>
             {
                 body &&
