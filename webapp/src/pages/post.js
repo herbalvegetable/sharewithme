@@ -36,6 +36,22 @@ function NormalPostType(props) {
     const ctx = useContext(AppContext);
     const router = useRouter();
 
+    const [author, setAuthor] = useState({});
+
+    useEffect(() => {
+        console.log('POST USERID: ', ctx.userIdContext);
+        if (ctx.userIdContext) {
+            axios.get(`http://localhost:5000/login?user=${ctx.userIdContext}`)
+                .then(({ data }) => {
+                    console.log('POST USER: ', data);
+                    setAuthor(data);
+                })
+                .catch(err => console.log(err));
+        }
+
+        // TODO: show user information on top of each smallpost
+    }, []);
+
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [imgList, setImgList] = useState([]);
@@ -249,6 +265,7 @@ function NormalPostType(props) {
                             Preview Post
                         </div>
                         <SmallPost
+                            user={ctx.userIdContext}
                             title={title}
                             body={body}
                             imgList={imgList.map(img => img.data)}

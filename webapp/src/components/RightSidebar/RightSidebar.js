@@ -30,9 +30,10 @@ export default function RightSidebar(props) {
         if(authSession?.user){
             axios.get(`http://localhost:5000/login?email=${authSession.user.email}`)
                 .then(({data}) => {
-                    // console.log(data);
+                    // console.log('RIGHTSIDEBAR: ', data);
 
                     // console.log('RIGHTSIDEBAR: ', data.username, data.email);
+                    ctx.setUserIdContext(data._id);
                     ctx.setNameContext(data.username);
                     ctx.setEmailContext(data.email);
                 })

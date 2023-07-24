@@ -7,11 +7,13 @@ import AppContext from '@/components/AppContext/AppContext';
 
 export default function App({ Component, pageProps, session }) {
 
+	const [userIdContext, setUserIdContext] = useState('');
 	const [nameContext, setNameContext] = useState('defaultName');
 	const [emailContext, setEmailContext] = useState('defaultEmail');
 
 	return (
 		<AppContext.Provider value={{
+			userIdContext, setUserIdContext,
 			nameContext, setNameContext,
 			emailContext, setEmailContext,
 		}}>

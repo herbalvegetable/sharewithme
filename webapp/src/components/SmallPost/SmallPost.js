@@ -72,7 +72,7 @@ export default function SmallPost(props) {
                             alt='Profile Image'
                             className={styles.img} />
                     </div>
-                    <div className={styles.name}>{author.username}</div>
+                    <div className={styles.username}>{author.username}</div>
                 </div>
 
                 :
