@@ -1,5 +1,6 @@
 import NextAuth from "next-auth/next";
 import GoogleProvider from 'next-auth/providers/google';
+import axios from 'axios';
 
 export default NextAuth({
     providers: [
@@ -18,6 +19,14 @@ export default NextAuth({
             1.1. IF NOT, on google login, redirect to second login form page, asking to create new username - each username MUST be unique
             1.2. IF YES, login completed, redirect to home page
             */
+
+            axios.post(`http://localhost:5000/login`, user)
+                .then(({ data }) => {
+                    console.log(data);
+
+
+                })
+                .catch(err => console.log(err));
 
             return true;
         },

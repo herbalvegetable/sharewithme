@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -7,8 +7,11 @@ import styles from '@/styles/Home.module.css';
 
 import PageContainer from '@/layout/PageContainer/PageContainer';
 import SmallPost from '@/components/SmallPost/SmallPost';
+import AppContext from '@/components/AppContext/AppContext';
 
 export default function Home(props) {
+	const ctx = useContext(AppContext);
+
 	const [posts, setPosts] = useState([]);
 	const [visiblePosts, setVisiblePosts] = useState([]);
 
@@ -20,6 +23,8 @@ export default function Home(props) {
 				setVisiblePosts(data);
 			})
 			.catch(err => console.log(err));
+
+		console.log('CONTEXT: ', ctx.nameContext);
 	}, []);
 
 	const [searchText, setSearchText] = useState('');

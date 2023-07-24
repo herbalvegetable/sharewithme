@@ -25,4 +25,9 @@ app.use(bodyParser.json({
     extended: true,
 }));
 
-require('./api/post')(app);
+const API_NAME_LIST = ['post', 'login'];
+
+for (let apiName of API_NAME_LIST){
+    // console.log(apiName);
+    require(`./api/${apiName}`)(app);
+}

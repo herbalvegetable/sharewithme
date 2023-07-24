@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { BsPlus, BsUpload, BsX } from 'react-icons/bs';
@@ -8,6 +8,7 @@ import styles from '@/styles/PostCreate.module.css';
 
 import PageContainer from '@/layout/PageContainer/PageContainer';
 import SmallPost from '@/components/SmallPost/SmallPost';
+import AppContext from '@/components/AppContext/AppContext';
 
 function Tag(props) {
     const { tag, tagIndex, handleRemoveTag } = props;
@@ -32,7 +33,7 @@ function Tag(props) {
 }
 
 function NormalPostType(props) {
-
+    const ctx = useContext(AppContext);
     const router = useRouter();
 
     const [title, setTitle] = useState('');
@@ -51,6 +52,7 @@ function NormalPostType(props) {
         e.preventDefault();
 
         const postData = {
+            email: ctx.emailContext,
             title,
             body,
             imgList: imgList.map(img => img.data),

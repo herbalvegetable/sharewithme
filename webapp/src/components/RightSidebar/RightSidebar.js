@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { BsThreeDots, BsThreeDotsVertical } from 'react-icons/bs';
 import { signOut } from 'next-auth/react';
+import axios from 'axios';
 
 import styles from './RightSidebar.module.css';
 
 import LoginModal from '../LoginModal/LoginModal';
 import Auth from '../Auth/Auth';
+import AppContext from '../AppContext/AppContext';
 
 export default function RightSidebar(props) {
+    const ctx = useContext(AppContext);
+
     const router = useRouter();
 
     const [modalOpen, setModalOpen] = useState(false);
@@ -22,8 +26,26 @@ export default function RightSidebar(props) {
         console.log('Session: ', authSession);
         console.log('User: ', authSession?.user);
         console.log('Status: ', authStatus);
+
+        if(authSession?.user){
+            axios.get(`http://localhost:5000/login?email=${authSession.user.email}`)
+                .then(({data}) => {
+                    console.log(data);
+
+                    console.log('RIGHTSIDEBAR: ', data.username, data.email);
+                    ctx.setNameContext(data.username);
+                    ctx.setEmailContext(data.email);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
     }, [authSession, authStatus]);
 
+    // useEffect(() => {
+    //     console.log(ctx.nameContext, ctx.emailContext);
+    // }, [ctx.nameContext, ctx.emailContext]);
 
     const handleAuthSession = session => {
         setAuthSession(session);
