@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
+import axios from 'axios';
 
 import styles from './SmallPost.module.css';
 import ImageSlider from '../ImageSlider/ImageSlider';
@@ -9,7 +10,7 @@ import ImageSlider from '../ImageSlider/ImageSlider';
 export default function SmallPost(props) {
 
     const router = useRouter();
-    const { _id: postId, title, body, imgList, tags, isPreview, searchText, setSearchText, handleSearch } = props;
+    const { _id: postId, user, title, body, imgList, tags, isPreview, searchText, setSearchText, handleSearch } = props;
 
     const [activeImg, setActiveImg] = useState(0);
 
@@ -27,6 +28,17 @@ export default function SmallPost(props) {
             const bodyEl = bodyRef.current;
             setIsOverflow(bodyEl.clientHeight < bodyEl.scrollHeight);
         }
+
+        console.log('SMALLPOST USERID: ', user);
+        if(user){
+            axios.get(`http://localhost:5000/login?user=${user}`)
+                .then(({data}) => {
+                    console.log('SMALLPOST USER: ', data);
+                })
+                .catch(err => console.log(err));
+        }
+
+        // TODO: show user information on top of each smallpost
     }, []);
 
     const handleClickTag = tag => {

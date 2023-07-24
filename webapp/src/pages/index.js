@@ -19,7 +19,7 @@ export default function Home(props) {
 		axios.get(`http://localhost:5000/post?sort=new`)
 			.then(({ data }) => {
 				setPosts(data);
-				// console.log(data);
+				console.log('INDEX POSTLIST: ', data);
 				setVisiblePosts(data);
 			})
 			.catch(err => console.log(err));

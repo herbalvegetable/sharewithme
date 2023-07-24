@@ -3,19 +3,25 @@ const { User } = require('../models/User');
 module.exports = app => {
     app.get('/login', async (req, res) => {
 
-        const { email } = req.query;
+        const { user: userId, email } = req.query;
 
-        try{
-            const user = await User.findOne({email});
-            
-            if(user){
+        try {
+            let user;
+            if (userId) {
+                user = await User.findById(userId);
+            }
+            else if (email) {
+                user = await User.findOne({ email });
+            }
+
+            if (user) {
                 res.send(user);
             }
-            else{
+            else {
                 res.send({});
             }
         }
-        catch(err){
+        catch (err) {
             console.log(err);
             res.sendStatus(500);
         }
@@ -44,7 +50,7 @@ module.exports = app => {
                 console.log(`POST: new user created`);
                 res.sendStatus(200);
             }
-            catch(err){
+            catch (err) {
                 console.log(err);
                 res.sendStatus(500);
             }
