@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import Image from 'next/image';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
+import parse from 'html-react-parser';
 
 import styles from '@/styles/PostExpand.module.css';
 
@@ -49,7 +50,7 @@ export default function PostExpand(props) {
                     {post.title}
                 </div>
                 <div className={styles.body}>
-                    {post.body}
+                    {post.body && parse(post.body)}
                 </div>
                 {
                     post.imgList?.length > 0 &&

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
-.post_types{
+.post_types {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     /* flex-direction: row; */
@@ -10,7 +10,8 @@
     margin-top: 0.8em;
     margin-bottom: 1em;
 }
-.post_types > .type{
+
+.post_types>.type {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -24,13 +25,16 @@
 
     cursor: pointer;
 }
-.post_types > .type:first-child{
+
+.post_types>.type:first-child {
     border-radius: 20px 0 0 20px;
 }
-.post_types > .type:last-child{
+
+.post_types>.type:last-child {
     border-radius: 0 20px 20px 0;
 }
-.post_types > .type.active{
+
+.post_types>.type.active {
     background-color: #1B9D51;
     color: #fff;
 }
@@ -42,7 +46,7 @@
     margin-bottom: 0.15em;
 
     border: 2px solid white;
-    border-left: 2px solid #1B9D51;
+    /* border-left: 2px solid #1B9D51; */
     border-radius: 4px;
     outline: none;
     background-color: white;
@@ -60,7 +64,6 @@
     margin-bottom: 1em;
 
     border: 2px solid white;
-    border-left: 2px solid #1B9D51;
     border-radius: 4px;
     outline: none;
     background-color: white;
@@ -68,6 +71,27 @@
     transition: 0.1s;
 
     resize: vertical;
+}
+
+.tiptap_editor :global(.ProseMirror) {
+    font-size: 1em;
+    padding: 0 0.5em;
+    margin-bottom: 1em;
+
+    border: 2px solid white;
+    border-radius: 4px;
+    outline: none;
+    background-color: white;
+
+    transition: 0.1s;
+}
+
+.tiptap_editor :global(.ProseMirror) p:global(.is-editor-empty):first-child::before {
+    color: gray;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
 }
 
 /* .body:focus {
@@ -183,7 +207,7 @@
     overflow-x: auto;
 
     border: 2px solid white;
-    border-left: 2px solid #1B9D51;
+    /* border-left: 2px solid #1B9D51; */
 
     border-radius: 4px;
 }

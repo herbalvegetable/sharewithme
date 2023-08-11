@@ -9,6 +9,7 @@ import styles from '@/styles/PostCreate.module.css';
 import PageContainer from '@/layout/PageContainer/PageContainer';
 import SmallPost from '@/components/SmallPost/SmallPost';
 import AppContext from '@/components/AppContext/AppContext';
+import TiptapEditor from '@/components/TiptapEditor';
 
 function Tag(props) {
     const { tag, tagIndex, handleRemoveTag } = props;
@@ -96,6 +97,10 @@ function NormalPostType(props) {
 
     const fileInputRef = useRef();
 
+    useEffect(() => {
+        console.log('BODY: ', body);
+    }, [body]);
+
     return (
         <>
             <input
@@ -106,15 +111,12 @@ function NormalPostType(props) {
                     setTitle(e.target.value);
                 }}
                 placeholder='Title' />
-            <textarea
-                className={styles.body}
-                rows={10}
-                cols={50}
-                value={body}
-                onChange={e => {
-                    setBody(e.target.value);
-                }}
-                placeholder='Body (optional)' />
+
+            <div className={styles.tiptap_editor}>
+                <TiptapEditor 
+                    placeholder='Body (optional)'
+                    setContent={setBody}/>
+            </div>
 
             <div className={styles.img_grid}>
                 {

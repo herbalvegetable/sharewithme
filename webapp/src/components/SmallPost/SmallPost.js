@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import axios from 'axios';
+import parse from 'html-react-parser';
 
 import styles from './SmallPost.module.css';
 import ImageSlider from '../ImageSlider/ImageSlider';
@@ -82,9 +83,9 @@ export default function SmallPost(props) {
             <div className={styles.title}>{title}</div>
             {
                 body &&
-                <div className={styles.body} ref={bodyRef}>
+                <div className={`${styles.body} ${isPreview ? styles.preview : ''}`} ref={bodyRef}>
                     {isOverflow && <div className={styles.fade_container}></div>}
-                    {body}
+                    {parse(body)}
                 </div>
             }
             {

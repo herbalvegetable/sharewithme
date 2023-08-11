@@ -52,6 +52,9 @@
     margin-bottom: 0.5em;
     max-height: 160px;
 }
+.body.preview{
+    max-height: none;
+}
 
 .body .fade_container {
     position: absolute;
