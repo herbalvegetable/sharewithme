@@ -16,19 +16,35 @@ export default function PostExpand(props) {
     const [post, setPost] = useState({});
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/post?id=${postId}`)
-            .then(({ data }) => {
-                setPost(data);
-                console.log(data);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }, []);
+        console.log('FETCH POST DATA');
+
+        if (postId) {
+            axios.get(`http://localhost:5000/post?id=${postId}`)
+                .then(({ data }) => {
+                    setPost(data);
+                    console.log(data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    }, [postId]);
 
     return (
         <PageContainer>
             <div className={styles.post}>
+                <div className={styles.user}>
+                    <div className={styles.img_container}>
+                        <Image 
+                            className={styles.img}
+                            src={post.user?.img || '/default_pfp.jpg'}
+                            width={40}
+                            height={40}/>
+                    </div>
+                    <div className={styles.name}>
+                        {post.user?.username}
+                    </div>
+                </div>
                 <div className={styles.title}>
                     {post.title}
                 </div>
@@ -62,6 +78,14 @@ export default function PostExpand(props) {
                         }
                     </div>
                 }
+                <div className={styles.actions}>
+                    
+                </div>
+                <div className={styles.comments_container}>
+                    <div className={styles.title}>
+                        0 comments
+                    </div>
+                </div>
             </div>
         </PageContainer>
     )

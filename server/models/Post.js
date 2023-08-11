@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
 const { User, userSchema } = require('./User');
+const { Comment, commentSchema } = require('./Comment');
 
 const postSchema = new Schema({
 
@@ -11,6 +12,9 @@ const postSchema = new Schema({
     body: String,
     imgList: [String],
     tags: [String],
+    likedUsers: [{ type: Schema.Types.ObjectId, ref: User }],
+
+    comments: [{ type: Schema.Types.ObjectId, ref: Comment }],
 
 }, { timestamps: true });
 

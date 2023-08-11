@@ -9,7 +9,7 @@ module.exports = app => {
 
         if (id) {
             try {
-                const post = await Post.findById(id);
+                const post = await Post.findById(id).populate('user');
                 res.send(post);
                 console.log(`GET: retrieve post id ${id}`);
             }
